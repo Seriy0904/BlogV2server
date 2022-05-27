@@ -23,6 +23,11 @@ repositories {
 }
 
 dependencies {
+
+    implementation("org.jetbrains.exposed", "exposed-core", "0.38.1")
+    implementation("org.jetbrains.exposed", "exposed-dao", "0.38.1")
+    implementation("org.jetbrains.exposed", "exposed-jdbc", "0.38.1")
+
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")

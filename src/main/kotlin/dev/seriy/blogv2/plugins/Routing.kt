@@ -10,7 +10,7 @@ fun Application.configureRouting() {
     routing {
         blogRouting()
         get("/") {
-            call.respond("WDWD")
+            call.respond("Hello")
         }
     }
 }
