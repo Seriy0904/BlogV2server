@@ -14,6 +14,7 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
+import kotlin.io.path.Path
 
 fun Application.configureBlogRouting() {
     routing {
@@ -36,7 +37,7 @@ fun Application.configureBlogRouting() {
                         .startsWith("Windows")
                 ) "G:\\uploads\\$uuid" else "/uploads/$uuid")
                 if (File(dir).exists())
-                    deleteDirectory(Path.of(dir))
+                    deleteDirectory(Path(dir))
                 multipartData.forEachPart { part ->
                     when (part) {
                         is PartData.FileItem -> {
