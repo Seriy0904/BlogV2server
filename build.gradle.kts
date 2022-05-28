@@ -21,8 +21,8 @@ repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
 }
-tasks {
-    create("stage").dependsOn("installDist")
+tasks.create("stage"){
+    dependsOn("installDist")
 }
 dependencies {
     implementation("org.postgresql:postgresql:42.3.4")
