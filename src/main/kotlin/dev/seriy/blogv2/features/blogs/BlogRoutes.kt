@@ -49,9 +49,8 @@ fun Application.configureBlogRouting() {
                                         .startsWith("Windows")
                                 ) "G:\\uploads\\$uuid" else "/uploads/$uuid"
                             )
-                            File(("/uploads/$uuid")).mkdir()
                             dir.mkdirs()
-                            println("------------------------>"+File("/").list().joinToString(", "))
+                            println("------------------------>"+File("/var").list().joinToString(", "))
                             val type = part.originalFileName.toString().substringAfter('.')
                             File(
                                 if (System.getProperty("os.name")
