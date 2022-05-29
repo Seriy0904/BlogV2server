@@ -13,13 +13,7 @@ import java.util.*
 
 
 fun main() {
-    val props = Properties()
-    props.setProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource")
-    props.setProperty("dataSource.user", "qxliufstebbvlw")
-    props.setProperty("dataSource.password", "fec68196fb1633b0a475b9f097e3cf19da8e9e2340f685c7e9ddcd13167d50ab")
-    props.setProperty("dataSource.databaseName", "d8tvpluk9c1mu3")
-    props["dataSource.logWriter"] = PrintWriter(System.out)
-    val config = HikariConfig(props)
+    val config = HikariConfig("hikari.properties")
     val ds = HikariDataSource(config)
     Database.connect(ds)
 
