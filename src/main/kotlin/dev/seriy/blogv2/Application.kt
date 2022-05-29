@@ -8,9 +8,6 @@ import dev.seriy.blogv2.plugins.configureSerialization
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.jetbrains.exposed.sql.Database
-import java.io.PrintWriter
-import java.util.*
-import java.util.logging.Logger
 
 
 fun main() {

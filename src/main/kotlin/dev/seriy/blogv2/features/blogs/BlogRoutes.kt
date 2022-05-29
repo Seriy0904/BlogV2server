@@ -23,7 +23,9 @@ fun Application.configureBlogRouting() {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
-            call.respond(Blogs.getUser(UUID.fromString(id)) ?: return@get call.respond(HttpStatusCode.NotFound))
+            if (UUID.fromString(id) is UUID) {
+                call.respond(Blogs.getUser(UUID.fromString(id)) ?: return@get call.respond(HttpStatusCode.NotFound))
+            } else return@get call.respond(HttpStatusCode.BadRequest)
         }
         post("/blogs/{uuid}") {
             val uuid = call.parameters["uuid"] ?: return@post call.respondText(
