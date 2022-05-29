@@ -55,7 +55,7 @@ fun Application.configureBlogRouting() {
                             File(
                                 if (System.getProperty("os.name")
                                         .startsWith("Windows")
-                                ) "G:\\uploads\\$uuid\\$pos.$type" else "/$uuid/$pos.$type"
+                                ) "G:\\uploads\\$uuid\\$pos.$type" else "/var/$pos.$type"
                             ).writeBytes(fileBytes)
                             pos++
                         }
