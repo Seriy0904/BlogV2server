@@ -27,7 +27,7 @@ repositories {
 }
 dependencies {
     implementation("org.postgresql:postgresql:42.2.2")
-    implementation("com.zaxxer:HikariCP:5.0.1")
+    implementation("com.zaxxer:HikariCP:4.0.3")
 
     implementation("org.jetbrains.exposed", "exposed-core", "0.38.1")
     implementation("org.jetbrains.exposed", "exposed-dao", "0.38.1")
