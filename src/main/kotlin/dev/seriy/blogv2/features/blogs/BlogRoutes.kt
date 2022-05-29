@@ -47,7 +47,7 @@ fun Application.configureBlogRouting() {
                             val dir = File(
                                 if (System.getProperty("os.name")
                                         .startsWith("Windows")
-                                ) "G:\\uploads\\$uuid" else "/uploads/$uuid"
+                                ) "G:\\uploads\\$uuid" else "/var/$uuid"
                             )
                             dir.mkdirs()
                             println("------------------------>"+File("/var").list().joinToString(", "))
@@ -55,7 +55,7 @@ fun Application.configureBlogRouting() {
                             File(
                                 if (System.getProperty("os.name")
                                         .startsWith("Windows")
-                                ) "G:\\uploads\\$uuid\\$pos.$type" else "/uploads/$uuid/$pos.$type"
+                                ) "G:\\uploads\\$uuid\\$pos.$type" else "/var/$uuid/$pos.$type"
                             ).writeBytes(fileBytes)
                             pos++
                         }
