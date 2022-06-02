@@ -3,16 +3,14 @@ package dev.seriy.blogv2.database.blogs
 import dev.seriy.blogv2.features.blogs.models.BlogModel
 import dev.seriy.blogv2.features.blogs.models.arrayToString
 import dev.seriy.blogv2.features.blogs.models.stringToArray
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 
 object Blogs : Table() {
-    private val uuid = uuid("uuid")
+    private val uuid = Blogs.uuid("uuid")
     private val tittle = Blogs.varchar("tittle", 25)
     private val login = Blogs.varchar("login", 25)
     private val userName = Blogs.varchar("username", 25)
@@ -30,6 +28,27 @@ object Blogs : Table() {
                 it[description] = blogModel.description
                 it[photosurl] = arrayToString(blogModel.photosurl)
             }
+        }
+    }
+
+    fun getAll(): List<BlogModel> {
+        return try {
+            transaction {
+                Blogs.selectAll().toList()
+                    .map { blogModel ->
+                        BlogModel(
+                            uuid = blogModel[uuid],
+                            tittle = blogModel[tittle],
+                            login = blogModel[login],
+                            userName = blogModel[userName],
+                            timelong = blogModel[timelong],
+                            description = blogModel[description],
+                            photosurl = stringToArray(blogModel[photosurl])
+                        )
+                    }
+            }
+        } catch (e: NoSuchElementException) {
+            emptyList()
         }
     }
 
@@ -51,21 +70,33 @@ object Blogs : Table() {
             null
         }
     }
-    fun edit(blog:BlogModel){
+
+    fun edit(
+        uuid: UUID,
+        tittle: String = "",
+        login: String = "",
+        userName: String = "",
+        description: String = "",
+        photosurl: String = ""
+    ) {
         transaction {
-            val o = Blogs.select { uuid.eq(uuid) }.single()
-            o[tittle] = blog.tittle.ifEmpty { o[tittle] }
-            o[login] = blog.login.ifEmpty { o[login] }
-            o[userName] = blog.userName.ifEmpty { o[userName] }
-            o[description] = blog.description.ifEmpty { o[description] }
-            o[photosurl] = blog.photosurl?.ifEmpty { o[photosurl] }
+            Blogs.update {
+                it[Blogs.uuid] = uuid
+                it[Blogs.photosurl] = photosurl
+            }
         }
     }
-    fun exists(uuid: UUID): Boolean {
-        return transaction {
-            !Blogs.select { Blogs.uuid.eq(uuid) }.empty()
+
+    fun exists(uuid: UUID) = transaction {
+        !Blogs.select { Blogs.uuid.eq(uuid) }.empty()
+    }
+
+    fun deleteBlog(uuid: UUID) {
+        transaction {
+            Blogs.deleteWhere { Blogs.uuid.eq(uuid) }
         }
     }
+
 
     fun deleteDirectory(directory: Path?) {
         Files.walk(directory)

@@ -1,6 +1,7 @@
 package dev.seriy.blogv2
 
 import dev.seriy.blogv2.features.blogs.configureBlogRouting
+import dev.seriy.blogv2.features.users.configureUserRouting
 import dev.seriy.blogv2.plugins.configureRouting
 import dev.seriy.blogv2.plugins.configureSerialization
 import io.ktor.server.engine.*
@@ -13,9 +14,10 @@ fun main() {
         password = "ghjuhfvvf", user = "postgres"
     )
 
-    embeddedServer(Netty, port = System.getenv("PORT").toInt(), host = "0.0.0.0") {
+    embeddedServer(Netty, 8080, host = "0.0.0.0") {
         configureBlogRouting()
         configureRouting()
+        configureUserRouting()
         configureSerialization()
     }.start(wait = true)
 }

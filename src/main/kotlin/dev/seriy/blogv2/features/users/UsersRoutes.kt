@@ -1,4 +1,10 @@
 package dev.seriy.blogv2.features.users
 
-class UsersRoutes {
+import io.ktor.server.application.*
+import io.ktor.server.routing.*
+
+fun Application.configureUserRouting(){
+    routing {
+
+    }
 }
