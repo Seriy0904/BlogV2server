@@ -1,1 +1,1 @@
-web: ./build/install/ktor-get-started-sample/bin/ktor-get-started-sample
+web: ./build/install/dev.seriy.blogv2/bin/dev.seriy.blogv2
